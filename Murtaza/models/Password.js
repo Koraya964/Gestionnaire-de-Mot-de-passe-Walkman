@@ -42,3 +42,4 @@ const passwordSchem = new mongoose.Schema({
 
 const Password = mongoose.model('Password', passwordSchem);
 export default Password;
+// 
