@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const url = 'mongodb://localhost:27017/d-drive';
+const url = 'mongodb://localhost:27017/x-drive';
 
 async function connectionDB() {
     try{

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import argon2 from 'argon2';
 
 
 const userSchema = new mongoose.Schema({
@@ -64,6 +65,24 @@ const userSchema = new mongoose.Schema({
     }
 
 
+})
+
+// ici je hash instantment le mdp
+userSchema.pre('save', async function () {
+    if (!this.isModified('password'))
+        return;
+    try{
+        this.password = await argon2.hash(this.password, {
+            type: argon2.argon2id,
+            memoryCost: 65536,
+            timeCost: 3,
+            parallelism: 4
+        });
+        console.log('Password hashé pour:', this.firstName);
+    }catch(error){
+        console.error('Erreur hash password: ', error);
+        throw error
+    }
 })
 
 const User = mongoose.model('User', userSchema);
