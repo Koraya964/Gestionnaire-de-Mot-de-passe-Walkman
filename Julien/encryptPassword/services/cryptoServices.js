@@ -31,7 +31,7 @@ class CryptoService {
         const decipher = crypto.createDecipheriv(
             'aes-256-gcm',
             key,
-            Buffer.from(iv, 'hex')  // Je réutilise le même IV
+            Buffer.from(iv, 'hex')  // Je réutilise le même IV grace au return plus haut 
         );
 
         // Je définis le tag pour vérifier l'intégrité
@@ -46,7 +46,7 @@ class CryptoService {
 
     // Dériver une clé de chiffrement depuis le master password
     static deriveKey(masterPassword, salt) {
-        // J'utilise PBKDF2 pour dériver une clé de 32 bytes (256 bits)
+        // J'utilise PBKDF2 pour dériver une clé de 32 bytes (256 bits)(infos trouvée sur reddit/stackoverflow)
         return crypto.pbkdf2Sync(
             masterPassword,
             salt,
