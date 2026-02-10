@@ -1,4 +1,3 @@
-import express from 'express';
 import argon2 from 'argon2';
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
@@ -33,7 +32,7 @@ export const authenticateUser = async(req, res) => {
         const user = await User.findOne({email});
         if(!user) return res.status(401).json({message: 'email ou mot de pass incorrect'});
 
-        const matchPassword = await User.findOne({password});
+        const matchPassword = await argon2.verify(user.password, password)
         if(!matchPassword) return res.status(401).json({message: 'email ou mot de pass incorrect'});
 
         // si l'email et mdp est bien correct les deux on passe un token au navigateur
