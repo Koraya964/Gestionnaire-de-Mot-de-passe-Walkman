@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import argon2 from 'argon2';
+import crypto from 'crypto';
 import CryptoService from '../services/cryptoService.js';
 
 const userSchema = new mongoose.Schema({
@@ -27,7 +28,7 @@ const userSchema = new mongoose.Schema({
         minlength: 10,
         maxlength: 13,
         unique: true,
-        sparse: true  // Permet les valeurs null/undefined (ça reste des donnée sensible pas mal de Persona sont hésitant à donnée ces infos)
+        sparse: true  // Permet les valeurs null/undefined
     },
     password: {
         type: String,
@@ -40,6 +41,19 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    // Recovery system
+    encryptedMasterKey: {
+        type: String,
+        default: null
+    },
+    recoveryKeySalt: {
+        type: String,
+        default: null
+    },
+    recoveryKeyIV: {
+        type: String,
+        default: null
+    },
     avatar: {
         type: String
     },
@@ -51,7 +65,7 @@ const userSchema = new mongoose.Schema({
     address: {
         street: {
             type: String,
-            max: 45,
+            max: 45
         },
         city: {
             type: String,
@@ -60,7 +74,7 @@ const userSchema = new mongoose.Schema({
         },
         postalcode: {
             type: String,
-            maxlength: 5,
+            maxlength: 5
         },
         country: {
             type: String,
@@ -74,7 +88,7 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-// Hash le password avant de sauvegarder (directement fait avant le save)
+// Hash le password avant de sauvegarder
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
 
@@ -103,6 +117,47 @@ userSchema.methods.verifyPassword = async function (candidatePassword) {
 userSchema.methods.getEncryptionKey = function (password) {
     // Je dérive une clé depuis le password et le salt
     return CryptoService.deriveKey(password, this.encryptionSalt);
+};
+
+// Méthode pour setup la recovery key
+userSchema.methods.setupRecovery = function (masterPassword) {
+
+    // Génère une recovery key aléatoire (32 bytes = 64 caractères hex)
+    const recoveryKey = crypto.randomBytes(32).toString('hex');
+
+    // Génère un salt et IV pour la recovery
+    this.recoveryKeySalt = crypto.randomBytes(32).toString('hex');
+    const iv = crypto.randomBytes(12);
+    this.recoveryKeyIV = iv.toString('hex');
+
+    // Dérive la clé principale depuis le master password
+    const masterKey = crypto.pbkdf2Sync(
+        masterPassword,
+        this.encryptionSalt,
+        100000,
+        32,
+        'sha256'
+    );
+
+    // Dérive une clé depuis la recovery key
+    const recoveryDerivedKey = crypto.pbkdf2Sync(
+        recoveryKey,
+        this.recoveryKeySalt,
+        100000,
+        32,
+        'sha256'
+    );
+
+    // Chiffre la clé principale avec la recovery key
+    const cipher = crypto.createCipheriv('aes-256-gcm', recoveryDerivedKey, iv);
+    let encrypted = cipher.update(masterKey.toString('hex'), 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    const authTag = cipher.getAuthTag();
+
+    // Stocke : encrypted:authTag
+    this.encryptedMasterKey = encrypted + ':' + authTag.toString('hex');
+
+    return recoveryKey; // À afficher UNE FOIS à l'utilisateur
 };
 
 const User = mongoose.model('User', userSchema);

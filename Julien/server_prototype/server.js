@@ -84,6 +84,14 @@ app.use(session({
     }
 }));
 
+// Middleware pour ignorer les sourcemaps
+app.use((req, res, next) => {
+    if (req.url.endsWith('.map')) {
+        return res.status(404).end();
+    }
+    next();
+});
+
 
 // Rate limiter pour éviter les attaques DDOS (15 minutes de timeout après 100 requete par la même ip adress)
 const limiter = rateLimit({
@@ -113,6 +121,10 @@ app.get('/login', (req, res) => {
 
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'dashboard.html'))
+})
+
+app.get('/forgot-password', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'forgot-password.html'))
 })
 
 app.listen(PORT, () => {
