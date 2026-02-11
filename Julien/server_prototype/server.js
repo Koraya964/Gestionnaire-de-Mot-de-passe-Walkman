@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
-import session from 'express-session'; // Ajout nécessaire
+import session from 'express-session';
 import { connectDB } from './config/database.js';
 import authRoutes from './routes/auth.js';
 import passwordRoutes from './routes/passwords.js';
@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 connectDB();
 
-// Middlewares de sécurité
+// Middlewares de sécurité (très gros pavé et embêtant en prod mais là ça a l'air bon )
 app.use(helmet({
     contentSecurityPolicy: {
         directives: {
@@ -84,6 +84,8 @@ app.use(session({
     }
 }));
 
+
+// Rate limiter pour éviter les attaques DDOS (15 minutes de timeout après 100 requete par la même ip adress)
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 100
@@ -100,7 +102,7 @@ app.use('/api/auth', authRoutes);
 // Toutes les routes dans passwordRoutes nécessiteront désormais une session valide
 app.use('/api/passwords', passwordRoutes);
 
-// Correction de la route racine
+// les routes de navigation
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });

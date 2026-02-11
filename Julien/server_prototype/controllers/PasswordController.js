@@ -27,7 +27,7 @@ class PasswordController {
                 site,
                 userName,
                 email,
-                category: category || 'other',
+                category: category || 'other', // Catégorie choisi via le menu front et sinon en default other
                 encryptedPassword: encrypted,  // Password chiffré
                 iv,                            // IV unique pour ce password
                 authTag                        // Tag d'authentification GCM
@@ -49,6 +49,7 @@ class PasswordController {
                 filter.category = category;
             }
 
+            // On cherche les MDP et on les sort par Date créés S
             const passwords = await Password.find(filter)
                 .sort({ createdAt: -1 });
 

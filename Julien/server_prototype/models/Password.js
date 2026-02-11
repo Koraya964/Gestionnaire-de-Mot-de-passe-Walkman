@@ -22,7 +22,7 @@ const passwordSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // IV unique pour ce password
+    // IV unique pour ce password (password généré)
     iv: {
         type: String,
         required: true
@@ -59,7 +59,7 @@ const passwordSchema = new mongoose.Schema({
 });
 
 // Update le timestamp à chaque modification
-passwordSchema.pre('save', function(next) {
+passwordSchema.pre('save', function (next) {
     this.updatedAt = Date.now();
     next();
 });

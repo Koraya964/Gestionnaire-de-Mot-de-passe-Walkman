@@ -30,7 +30,7 @@ class AuthController {
             // Je génère le JWT
             const token = generateToken(user._id);
 
-            res.status(201).json({
+            res.status(201).json({ // je sais pas si c'est un bon tokken j'ai pris l'info sur reddit mais c'est peut-être bof
                 success: true,
                 token,
                 user: {

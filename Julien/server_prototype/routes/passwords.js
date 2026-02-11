@@ -4,7 +4,7 @@ import { authMiddleware } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Toutes les routes nécessitent d'être connecté
+// Toutes les routes nécessitent d'être connecté (sinon ça serait impossible faire quoique ce soit)
 router.use(authMiddleware);
 
 // Routes CRUD - délèguent au controller

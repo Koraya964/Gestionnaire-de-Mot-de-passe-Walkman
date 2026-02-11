@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
         minlength: 10,
         maxlength: 13,
         unique: true,
-        sparse: true  // Permet les valeurs null/undefined
+        sparse: true  // Permet les valeurs null/undefined (ça reste des donnée sensible pas mal de Persona sont hésitant à donnée ces infos)
     },
     password: {
         type: String,
@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema({
     address: {
         street: {
             type: String,
-            max: 45
+            max: 45,
         },
         city: {
             type: String,
@@ -60,7 +60,7 @@ const userSchema = new mongoose.Schema({
         },
         postalcode: {
             type: String,
-            maxlength: 5
+            maxlength: 5,
         },
         country: {
             type: String,
@@ -74,10 +74,10 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-// Hash le password avant de sauvegarder
-userSchema.pre('save', async function(next) {
+// Hash le password avant de sauvegarder (directement fait avant le save)
+userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
-    
+
     try {
         // Je hash le password avec Argon2id
         this.password = await argon2.hash(this.password, {
@@ -95,12 +95,12 @@ userSchema.pre('save', async function(next) {
 });
 
 // Méthode pour vérifier le password
-userSchema.methods.verifyPassword = async function(candidatePassword) {
+userSchema.methods.verifyPassword = async function (candidatePassword) {
     return await argon2.verify(this.password, candidatePassword);
 };
 
 // Méthode pour obtenir la clé de chiffrement
-userSchema.methods.getEncryptionKey = function(password) {
+userSchema.methods.getEncryptionKey = function (password) {
     // Je dérive une clé depuis le password et le salt
     return CryptoService.deriveKey(password, this.encryptionSalt);
 };
