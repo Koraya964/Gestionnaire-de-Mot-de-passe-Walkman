@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import argon2 from 'argon2';
-
+import CryptoService from '../services/cryptoService.js';
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -20,8 +20,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
         lowercase: true,
-        match: [/^\S+@\S+.\S+$/, 'Email invalide']
-
+        match: [/^\S+@\S+\.\S+$/, 'Email invalide']
     },
     telephon: {
         type: Number,
@@ -35,55 +34,59 @@ const userSchema = new mongoose.Schema({
         min: 8,
         max: 64
     },
-    avatar: {
-        type: String
+
+    // Added for encryption system
+    masterPasswordHash: {
+        type: String,
+        required: false
     },
+    masterSalt: {
+        type: String,
+        required: false
+    },
+
+    avatar: String,
+
     role: {
         type: String,
         enum: ['admin', 'subscrib', 'standard'],
         default: 'standard'
     },
+
     address: {
-        street: {
-            type: String,
-            max: 45
-        },
-        city: {
-            type: String,
-            min: 5,
-            max: 20,
-        },
-        postalcode: {
-            type: Number,
-            max: 5
-        },
-        country: {
-            type: String,
-            min: 5,
-            max: 20
-        }
+        street: { type: String, max: 45 },
+        city: { type: String, min: 5, max: 20 },
+        postalcode: { type: Number, max: 5 },
+        country: { type: String, min: 5, max: 20 }
     }
+});
 
-
-})
-
-// ici je hash instantment le mdp
+//Hash login password
 userSchema.pre('save', async function () {
-    if (!this.isModified('password'))
-        return;
-    try{
+    if (this.isModified('password')) {
         this.password = await argon2.hash(this.password, {
             type: argon2.argon2id,
             memoryCost: 65536,
             timeCost: 3,
             parallelism: 4
         });
-        console.log('Password hashé pour:', this.firstName);
-    }catch(error){
-        console.error('Erreur hash password: ', error);
-        throw error
     }
-})
 
-const User = mongoose.model('User', userSchema);
-export default User;
+    //Hash master password if modified
+    if (this.isModified('masterPasswordHash')) {
+        this.masterSalt = CryptoService.generateSalt();
+        this.masterPasswordHash = await argon2.hash(this.masterPasswordHash);
+    }
+});
+
+//Method: verify master password
+userSchema.methods.verifyMasterPassword = async function (masterPassword) {
+    return argon2.verify(this.masterPasswordHash, masterPassword);
+};
+
+// Method: derive encryption key
+userSchema.methods.getEncryptionKey = async function (masterPassword) {
+    return CryptoService.deriveKey(masterPassword, this.masterSalt);
+};
+
+export default mongoose.model('User', userSchema);
