@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - WakmanPass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-50 via-violet-50/30 to-blue-50/30 min-h-screen">
+    <!-- Header -->
+    <nav class="glass sticky top-0 z-50 border-b border-gray-200/50">
+        <div class="max-w-[1600px] mx-auto px-6 py-3.5">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="w-9 h-9 bg-gradient-to-br from-violet-500 to-blue-500 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <a href="index.html"
+                        class="text-lg font-semibold text-gray-900 hover:text-indigo-600">WalkmanPass</a>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <input type="text" id="searchInput" placeholder="Rechercher..."
+                        class="w-72 px-3.5 py-2 bg-white/80 border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm placeholder:text-gray-400">
+                    <span class="text-sm font-medium text-gray-600" id="userEmail"></span>
+                    <button id="logoutBtn"
+                        class="text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors">
+                        Déconnexion
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Layout -->
+    <div class="max-w-[1600px] mx-auto px-6 py-6 flex gap-6">
+        <!-- Sidebar -->
+        <div class="w-[360px] flex-shrink-0">
+            <div class="glass rounded-xl p-5 sticky top-24">
+                <h2 class="text-base font-semibold text-gray-900 mb-5">Nouveau mot de passe</h2>
+
+                <form id="quickAddForm" class="space-y-3.5">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1.5">Site web</label>
+                        <input type="url" id="quickSite" required placeholder="https://example.com"
+                            class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1.5">Email</label>
+                        <input type="email" id="quickEmail" placeholder="email@example.com"
+                            class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1.5">Identifiant</label>
+                        <input type="text" id="quickUserName" placeholder="username"
+                            class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1.5">Mot de passe</label>
+                        <div class="flex gap-2">
+                            <div class="flex-1 relative">
+                                <input type="password" id="quickPassword" required placeholder="••••••••••••"
+                                    class="w-full px-3 py-2 pr-9 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm font-mono">
+                                <button type="button" id="toggleQuickPassword"
+                                    class="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <button type="button" id="quickGenerateBtn"
+                                class="px-3 py-2 bg-violet-500 hover:bg-violet-600 text-white rounded-lg transition-colors flex items-center gap-1.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Options générateur -->
+                    <div class="grid grid-cols-2 gap-2 pt-1">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="genMinuscules" checked
+                                class="w-3.5 h-3.5 text-violet-600 rounded border-gray-300">
+                            <span class="text-xs font-medium text-gray-600">Minuscules</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="genMajuscules" checked
+                                class="w-3.5 h-3.5 text-violet-600 rounded border-gray-300">
+                            <span class="text-xs font-medium text-gray-600">Majuscules</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="genChiffres" checked
+                                class="w-3.5 h-3.5 text-violet-600 rounded border-gray-300">
+                            <span class="text-xs font-medium text-gray-600">Chiffres</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="genSymboles" checked
+                                class="w-3.5 h-3.5 text-violet-600 rounded border-gray-300">
+                            <span class="text-xs font-medium text-gray-600">Symboles</span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="text-xs font-medium text-gray-600">Longueur</label>
+                            <span id="lengthValue" class="text-xs font-semibold text-violet-600">16</span>
+                        </div>
+                        <input type="range" id="passwordLength" min="8" max="32" value="16"
+                            class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-violet-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1.5">Catégorie</label>
+                        <select id="quickCategory"
+                            class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm">
+                            <option value="other">Autre</option>
+                            <option value="social">Réseaux sociaux</option>
+                            <option value="banking">Banque</option>
+                            <option value="email">Email</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="work">Travail</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1.5">Votre mot de passe</label>
+                        <input type="password" id="quickMasterPassword" required placeholder="Master password"
+                            class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm">
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-violet-500 hover:bg-violet-600 text-white py-2.5 rounded-lg font-medium text-sm transition-colors mt-4">
+                        Ajouter au coffre
+                    </button>
+                </form>
+
+                <!-- Indicateur force -->
+                <div class="mt-5 pt-5 border-t border-gray-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-medium text-gray-600">Force du mot de passe</span>
+                        <span id="strengthText" class="text-xs font-semibold text-gray-400">—</span>
+                    </div>
+                    <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="strengthBar" class="h-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-1 min-w-0">
+            <div class="bg-white rounded-xl border border-gray-200/50 overflow-hidden">
+                <!-- Header -->
+                <div class="px-6 py-4 border-b border-gray-100">
+                    <h2 class="text-base font-semibold text-gray-900">Vos mots de passe</h2>
+                </div>
+
+                <!-- Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gray-50/50 border-b border-gray-100">
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                                    Site</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                                    Identifiant</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                                    Mot de passe</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                                    Catégorie</th>
+                                <th
+                                    class="px-6 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                                    Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="passwordsTableBody" class="divide-y divide-gray-100">
+                            <!-- Rows -->
+                        </tbody>
+                    </table>
+
+                    <!-- Empty State -->
+                    <div id="emptyState" class="hidden text-center py-16 px-4">
+                        <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-sm font-semibold text-gray-900 mb-1">Aucun mot de passe</h3>
+                        <p class="text-sm text-gray-500">Ajoutez votre premier mot de passe pour commencer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals (identiques mais avec nouvelle typo) -->
+    <div id="viewPasswordModal"
+        class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <h2 class="text-lg font-semibold text-gray-900 mb-5">Détails du mot de passe</h2>
+
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Titre</label>
+                    <p id="viewTitle" class="text-sm font-medium text-gray-900"></p>
+                </div>
+                <div id="viewSiteContainer" class="hidden">
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Site web</label>
+                    <a id="viewSite" href="#" target="_blank"
+                        class="text-sm text-violet-600 hover:text-violet-700 font-medium"></a>
+                </div>
+                <div id="viewUserNameContainer" class="hidden">
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Nom d'utilisateur</label>
+                    <p id="viewUserName" class="text-sm font-medium text-gray-900"></p>
+                </div>
+                <div id="viewEmailContainer" class="hidden">
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Email</label>
+                    <p id="viewEmail" class="text-sm font-medium text-gray-900"></p>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1.5">Mot de passe</label>
+                    <div class="flex items-center gap-2">
+                        <input type="password" id="viewPassword" readonly
+                            class="flex-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg font-mono text-sm">
+                        <button id="togglePasswordBtn"
+                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors text-sm font-medium">
+                            Afficher
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-2">
+                <button id="editPasswordBtn"
+                    class="flex-1 bg-violet-500 hover:bg-violet-600 text-white py-2 rounded-lg font-medium text-sm transition-colors">
+                    Modifier
+                </button>
+                <button id="closeViewBtn"
+                    class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg font-medium text-sm transition-colors">
+                    Fermer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="editPasswordModal"
+        class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 max-h-[85vh] overflow-y-auto shadow-2xl">
+            <h2 class="text-lg font-semibold text-gray-900 mb-5">Modifier le mot de passe</h2>
+
+            <form id="editPasswordForm" class="space-y-3.5">
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1.5">Titre *</label>
+                    <input type="text" id="editTitre" required
+                        class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1.5">Site web *</label>
+                    <input type="url" id="editSite" required
+                        class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1.5">Nom d'utilisateur</label>
+                    <input type="text" id="editUserName"
+                        class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1.5">Email</label>
+                    <input type="email" id="editEmail"
+                        class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1.5">Catégorie</label>
+                    <select id="editCategory"
+                        class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm">
+                        <option value="other">Autre</option>
+                        <option value="social">Réseaux sociaux</option>
+                        <option value="banking">Banque</option>
+                        <option value="email">Email</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="work">Travail</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1.5">Nouveau mot de passe
+                        (optionnel)</label>
+                    <input type="password" id="editPassword"
+                        class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1.5">Votre mot de passe *</label>
+                    <input type="password" id="editMasterPassword" required
+                        class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm">
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="submit"
+                        class="flex-1 bg-violet-500 hover:bg-violet-600 text-white py-2 rounded-lg font-medium text-sm transition-colors">
+                        Enregistrer
+                    </button>
+                    <button type="button" id="cancelEditBtn"
+                        class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg font-medium text-sm transition-colors">
+                        Annuler
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="masterPasswordModal"
+        class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl">
+            <h2 class="text-lg font-semibold text-gray-900 mb-2">Déchiffrement requis</h2>
+            <p class="text-sm text-gray-500 mb-5">Entrez votre mot de passe pour déchiffrer</p>
+
+            <form id="masterPasswordForm" class="space-y-4">
+                <input type="password" id="masterPasswordPrompt" required
+                    class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all text-sm"
+                    placeholder="Votre mot de passe">
+
+                <div class="flex gap-2">
+                    <button type="submit"
+                        class="flex-1 bg-violet-500 hover:bg-violet-600 text-white py-2 rounded-lg font-medium text-sm transition-colors">
+                        Déchiffrer
+                    </button>
+                    <button type="button" id="cancelMasterPasswordBtn"
+                        class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg font-medium text-sm transition-colors">
+                        Annuler
+                    </button>
+                </div>
+            </form>
+
+            <div id="masterPasswordError" class="hidden mt-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p class="text-red-800 text-xs font-medium"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/dashboard.js"></script>
+</body>
+
+</html>
