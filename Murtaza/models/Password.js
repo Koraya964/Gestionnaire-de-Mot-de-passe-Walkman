@@ -1,45 +1,60 @@
 import mongoose from "mongoose";
 
-const passwordSchem = new mongoose.Schema({
+const passwordSchema = new mongoose.Schema({
     userId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: [true, 'User ID requis'],
-    index: true
-  },
-  titre: {
-    type: String,
-    required: true,
-    max: 30
-  },
-  site: {
-    type: String,
-    required,
-    max: 255
-  },
-  encryptedPassword: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    max: 45,
-  },
-  userName: {
-    type: String,
-    max: 30
-  },
-    category: {
-    type: String,
-    enum: {
-      values: ['social', 'banking', 'email', 'shopping', 'work', 'other'],
-      message: 'Catégorie invalide'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: [true, "User ID requis"],
+        index: true
     },
-    default: 'other'
-  }
 
-})
+    title: {
+        type: String,
+        required: true,
+        max: 30
+    },
 
-const Password = mongoose.model('Password', passwordSchem);
+    website: {
+        type: String,
+        required: true,
+        max: 255
+    },
+
+    email: {
+        type: String,
+        max: 45
+    },
+
+    userName: {
+        type: String,
+        max: 30
+    },
+
+    category: {
+        type: String,
+        enum: {
+            values: ["social", "banking", "email", "shopping", "work", "other"],
+            message: "Catégorie invalide"
+        },
+        default: "other"
+    },
+
+    encryptedPassword: {
+        type: String,
+        required: true
+    },
+
+    iv: {
+        type: String,
+        required: true
+    },
+
+    authTag: {
+        type: String,
+        required: true
+    }
+
+}, { timestamps: true });
+
+const Password = mongoose.model("Password", passwordSchema);
 export default Password;
-// 

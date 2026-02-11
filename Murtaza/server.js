@@ -1,8 +1,9 @@
 import express from 'express';
 import connectionDB from './config/db';
-import routeLoginRegister from './routes/authRoutes.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import authRoutes from './routes/authRoutes.js';
+import passwordRoutes from './routes/passwordRoutes.js'
 
 await connectionDB();
 const app = express();
@@ -17,57 +18,13 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser());
 
-app.use(routeLoginRegister)
+// app utilise tous les routages pour login et authentication
+app.use("/auth", authRoutes); 
 
-// page d'accueil
-app.get('/', async(req, res) => {
-    try{
-        console.log("C'est le page d'accuiel");
-        // req.body({message: "c'est le pass d'accuiel"});
-    }catch(err){
-        console.log(err)
-    }
-});
+// app utilise tous les routages pour passwords et l'enregisterement
+app.use("/dashboard", passwordRoutes);
 
 
-// page de enrigistrer d'un utilisateur ou form d'enrigistrement
-app.get('/register', async(req, res) => {
-    try{
-        console.log(`C'est le page de register pour afficher les donnees`);
-    }catch(error){
-        console.log(error);
-    }
-})
-
-
-
-// page de login
-app.get('/login', async(req, res) => {
-    try{
-        console.log("Page de login pour afficher les donnees")
-    }catch(error){
-        console.log(error)
-    }
-});
-
-
-// page de dashboard
-app.get('/dashboard', async(req, res) => {
-    try{
-        console.log("Page de dashboard");
-    }catch(error){
-        console.log(error);
-    }
-});
-
-// route de loging out
-app.get('/logout', async(req, res) => {
-    try{
-        console.log("Page de logout");
-    }catch(error){
-        console.log(error)
-    }
-});
 
 
 const PORT = 3000;
