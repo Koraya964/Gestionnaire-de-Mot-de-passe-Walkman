@@ -33,12 +33,12 @@ class EmailService {
                         <div style="background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px;">
                             <h2 style="color: #1f2937; margin-top: 0; font-size: 18px;">Votre compte a été créé avec succès</h2>
                             <p style="color: #4b5563; line-height: 1.6; margin-bottom: 0;">
-                                Vous pouvez maintenant stocker vos mots de passe en toute sécurité avec un chiffrement AES-256-GCM de niveau militaire.
+                                Vous pouvez maintenant stocker vos mots de passe en toute sécurité avec WalkmanPass.
                             </p>
                         </div>
                         
                         <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
-                            <h3 style="color: #991b1b; margin-top: 0; font-size: 16px; font-weight: 600;">⚠️ IMPORTANT - Recovery Key</h3>
+                            <h3 style="color: #991b1b; margin-top: 0; font-size: 16px; font-weight: 600;">IMPORTANT - Recovery Key</h3>
                             <p style="color: #7f1d1d; margin-bottom: 15px; line-height: 1.6;">
                                 Votre <strong>recovery key</strong> vous permettra de récupérer votre compte si vous oubliez votre master password. 
                                 <strong>Conservez-la précieusement !</strong>
@@ -56,7 +56,7 @@ class EmailService {
                         </div>
                         
                         <div style="text-align: center; margin: 30px 0;">
-                            <a href="${process.env.CLIENT_URL}/dashboard.html" 
+                            <a href="${process.env.CLIENT_URL}/dashboard" 
                                 style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px;">
                                 Accéder à mon coffre
                             </a>
@@ -104,7 +104,7 @@ class EmailService {
                         </div>
                         
                         <div style="text-align: center; margin: 30px 0;">
-                            <a href="${process.env.CLIENT_URL}/auth.html" 
+                            <a href="${process.env.CLIENT_URL}/login" 
                                 style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px;">
                                 Se connecter
                             </a>
