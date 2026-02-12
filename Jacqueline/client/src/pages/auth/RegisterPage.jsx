@@ -18,7 +18,6 @@ const RegisterPage = () => {
 
         },
 
-
          {
             name:"prenom",
 
