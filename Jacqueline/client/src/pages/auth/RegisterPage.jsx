@@ -31,6 +31,7 @@ const RegisterPage = () => {
         },
 
         {
+        
             name:"email",
 
             label:"email",
