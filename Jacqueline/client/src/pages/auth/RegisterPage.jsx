@@ -6,6 +6,30 @@ const RegisterPage = () => {
 
     const fields = [
 
+
+         {
+            name:"nom",
+
+            label:"nom",
+
+            type:"name",
+
+            validation:{required:"nom requis"}
+
+        },
+
+
+         {
+            name:"prenom",
+
+            label:"prenom",
+
+            type:"name",
+
+            validation:{required:"prénom requis"}
+
+        },
+
         {
             name:"email",
 
@@ -38,7 +62,18 @@ const RegisterPage = () => {
             validation:{required:"Confirmation de mot de passe requis",minLength:6}
 
             
-        }
+        },
+
+         {
+            name:"telephone",
+
+            label:"telephone",
+
+            type:"number",
+
+            validation:{required:"numero de telephone requis"}
+
+        },
     ];
 
     const onSubmit = async (data) =>{
