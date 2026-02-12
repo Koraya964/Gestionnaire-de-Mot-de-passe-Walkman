@@ -48,7 +48,7 @@ const Home = () => {
 
 <h2>FAQ</h2>
 
-
+exemple
 
       </div>
     </>
