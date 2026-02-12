@@ -40,6 +40,7 @@ const Home = () => {
           dolore doloremque repudiandae aspernatur dicta fuga praesentium,
           corporis minus earum. Repellat deserunt harum enim sit soluta dolorem
           voluptas earum.
+          
         </p>
       </div>
 
