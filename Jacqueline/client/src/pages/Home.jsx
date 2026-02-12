@@ -26,7 +26,7 @@ const Home = () => {
       ></img>
 
       <div className="A propos">
-        <h2>A propos</h2>
+        <h2>A propos</h2>.  
 
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum
@@ -40,7 +40,7 @@ const Home = () => {
           dolore doloremque repudiandae aspernatur dicta fuga praesentium,
           corporis minus earum. Repellat deserunt harum enim sit soluta dolorem
           voluptas earum.
-          
+
         </p>
       </div>
 
