@@ -150,13 +150,13 @@ function showRecoveryKeyModal(recoveryKey) {
 
             <div class="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
                 <p class="text-xs text-red-800 font-medium">
-                    ⚠️ <strong>IMPORTANT :</strong> Notez cette clé sur papier ou dans un endroit sûr. Vous ne pourrez plus la voir après avoir fermé cette fenêtre.
+                    <strong>IMPORTANT :</strong> Notez cette clé sur papier ou dans un endroit sûr. Vous ne pourrez plus la voir après avoir fermé cette fenêtre.
                 </p>
             </div>
 
             <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
                 <p class="text-xs text-blue-800">
-                    💡 <strong>Astuce :</strong> Conservez-la dans un coffre-fort physique ou un gestionnaire de mots de passe secondaire.
+                    <strong>Astuce :</strong> Conservez-la dans un coffre-fort physique ou un gestionnaire de mots de passe secondaire.
                 </p>
             </div>
 
