@@ -18,7 +18,7 @@ const Home = () => {
         repudiandae aspernatur dicta fuga praesentium, corporis minus earum.
         Repellat deserunt harum enim sit soluta dolorem voluptas earum.
       </p>
-
+      
       <img
         src="https://images.unsplash.com/photo-1634224143538-ce0221abf732?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt=""

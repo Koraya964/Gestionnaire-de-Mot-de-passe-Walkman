@@ -10,6 +10,7 @@ const LoginPage = () => {
     navigate("/dashboard");
   };
 
+  
   return (
     <form onSubmit={handleSubmit}>
       <div id="creationCompte">

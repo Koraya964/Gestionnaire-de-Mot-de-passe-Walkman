@@ -96,6 +96,17 @@ class EmailService {
                                 Votre master password a été réinitialisé avec succès. Tous vos mots de passe stockés ont été automatiquement re-chiffrés avec votre nouveau master password.
                             </p>
                         </div>
+
+                        <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                            <h3 style="color: #991b1b; margin-top: 0; font-size: 16px; font-weight: 600;">IMPORTANT - Recovery Key</h3>
+                            <p style="color: #7f1d1d; margin-bottom: 15px; line-height: 1.6;">
+                                Votre <strong>recovery key</strong> vous permettra de récupérer votre compte si vous oubliez votre master password. 
+                                <strong>Conservez-la précieusement !</strong>
+                            </p>
+                            <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 13px; word-break: break-all; color: #1f2937; font-weight: 600;">
+                                ${recoveryKey}
+                            </div>
+                        </div>
                         
                         <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
                             <p style="color: #7f1d1d; margin: 0; line-height: 1.6; font-size: 14px;">
