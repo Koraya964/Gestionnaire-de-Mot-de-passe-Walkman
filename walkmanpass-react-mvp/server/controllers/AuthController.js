@@ -109,7 +109,7 @@ class AuthController {
             }
 
             try {
-                // DÃ©rive la clé depuis la recovery key
+                // Dérive la clé depuis la recovery key
                 const recoveryDerivedKey = crypto.pbkdf2Sync(
                     recoveryKey,
                     user.recoveryKeySalt,
@@ -168,7 +168,7 @@ class AuthController {
                 res.json({
                     success: true,
                     message: 'Mot de passe réinitialisé',
-                    newRecoveryKey // Nouvelle recovery key Ã  sauvegarder
+                    newRecoveryKey // Nouvelle recovery key à  sauvegarder
                 });
 
             } catch (error) {
