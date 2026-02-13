@@ -4,7 +4,8 @@ import React from "react";
 const Home = () => {
   return (
     <>
-      <h1>Lock Password</h1>
+    <div>
+      <h1>Walkman Password</h1>
 
       <p>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum officiis
@@ -24,8 +25,8 @@ const Home = () => {
         alt=""
         width={700}
       ></img>
-
-      <div className="A propos">
+</div>
+      <div id="A propos">
         <h2>A propos</h2>.  
 
         <p>
@@ -44,7 +45,7 @@ const Home = () => {
         </p>
       </div>
 
-      <div className="Partenariat">
+      <div id="Partenariat">
         <h2>Nos partenaires</h2>
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum
@@ -73,13 +74,14 @@ const Home = () => {
         ></img>
       </div>
 
-      <div className="tarif">
+      <div id="tarif">
+
         <h2>Tarifs</h2>
 
         
       </div>
 
-      <div className="faq">
+      <div id="faq">
         <h2>FAQ</h2>
 
         <p>

@@ -1,1 +1,26 @@
-@import 'axentix'
+@import "tailwindcss";
+
+root{
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+    width: 100%;
+}
+
+
+
+.navBar {
+    background: linear-gradient(to right, oklch(62.3% 0.214 259.815), oklch(43.2% 0.232 292.759));
+    margin: 20px;
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    color: white;
+}
+
+.link{
+ margin-left: auto;
+ display: flex;
+gap: 20px;
+border-color: black 2px;
+}
