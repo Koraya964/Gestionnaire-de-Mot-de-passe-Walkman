@@ -180,7 +180,7 @@ function showRecoveryKeyModal(recoveryKey) {
     // Fermer et rediriger
     document.getElementById('confirmRecoveryBtn').addEventListener('click', () => {
         modal.remove();
-        window.location.href = 'dashboard.html';
+        window.location.href = '/dashboard';
     });
 }
 
