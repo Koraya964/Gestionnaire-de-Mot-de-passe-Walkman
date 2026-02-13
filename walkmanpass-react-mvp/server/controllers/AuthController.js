@@ -163,7 +163,7 @@ class AuthController {
                 await user.save();
 
                 // Envoie email de confirmation
-                EmailService.sendPasswordResetConfirmation(user.email, user.firstName);
+                await EmailService.sendPasswordResetConfirmation(user.email, user.firstName);
 
                 res.json({
                     success: true,

@@ -48,7 +48,8 @@ app.use(helmet({
                 "'self'",
                 "http://localhost:3000",
                 "http://localhost:5173",
-                "http://localhost:5000"
+                "http://localhost:5000",
+                "http://localhost:5500"
             ],
             fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com", "data:"],
             objectSrc: ["'none'"],

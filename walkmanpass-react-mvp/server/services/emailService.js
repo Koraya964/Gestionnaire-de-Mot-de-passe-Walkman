@@ -31,7 +31,7 @@ class EmailService {
                         </div>
                         
                         <div style="background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px;">
-                            <h2 style="color: #1f2937; margin-top: 0; font-size: 18px;">Votre compte a été cré avec succés</h2>
+                            <h2 style="color: #1f2937; margin-top: 0; font-size: 18px;">Votre compte a été créer avec succés</h2>
                             <p style="color: #4b5563; line-height: 1.6; margin-bottom: 0;">
                                 Vous pouvez maintenant stocker vos mots de passe en toute sécurité avec WalkmanPass.
                             </p>
@@ -93,24 +93,12 @@ class EmailService {
                         <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
                             <p style="color: #065f46; margin: 0; line-height: 1.6;">
                                 Bonjour ${firstName},<br><br>
-                                Votre master password a été réinitialisé avec succà¨s. Tous vos mots de passe stockés ont été automatiquement re-chiffrés avec votre nouveau master password.
+                                Votre master password a été réinitialisé avec succés. Tous vos mots de passe stockés ont été automatiquement re-chiffrés avec votre nouveau master password.
                             </p>
                         </div>
-
-                        <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
-                            <h3 style="color: #991b1b; margin-top: 0; font-size: 16px; font-weight: 600;">IMPORTANT - Recovery Key</h3>
-                            <p style="color: #7f1d1d; margin-bottom: 15px; line-height: 1.6;">
-                                Votre <strong>recovery key</strong> vous permettra de récupérer votre compte si vous oubliez votre master password. 
-                                <strong>Conservez-la précieusement !</strong>
-                            </p>
-                            <div style="background: white; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 13px; word-break: break-all; color: #1f2937; font-weight: 600;">
-                                ${recoveryKey}
-                            </div>
-                        </div>
-                        
                         <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
                             <p style="color: #7f1d1d; margin: 0; line-height: 1.6; font-size: 14px;">
-                                <strong>Sécurité :</strong> Si vous n'àªtes pas à  l'origine de cette action, contactez-nous immédiatement.
+                                <strong>Sécurité :</strong> Si vous n'êtes pas à  l'origine de cette action, contactez-nous immédiatement.
                             </p>
                         </div>
                         
