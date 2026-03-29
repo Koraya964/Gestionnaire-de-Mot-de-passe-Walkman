@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+const JWT_SECRET=process.env.JWT_SECRET;
 // Middleware pour vérifier le JWT
 export const authMiddleware = (req, res, next) => {
     try {
@@ -14,7 +15,7 @@ export const authMiddleware = (req, res, next) => {
         const token = authHeader.split(' ')[1];
         
         // Je vérifie et décode le token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, JWT_SECRET);
         
         // J'ajoute l'userId à la requête pour les routes suivantes
         req.userId = decoded.userId;
