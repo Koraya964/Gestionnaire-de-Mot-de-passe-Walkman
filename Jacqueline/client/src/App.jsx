@@ -5,7 +5,7 @@ import Home from './pages/Home'
 import LoginPage from './pages/auth/LoginPage'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
-
+import "./app.css"
 
 
 
